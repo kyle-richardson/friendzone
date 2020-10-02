@@ -12,10 +12,10 @@ code {
     monospace;
 }
 
-.app-container {
+/* .app-container {
   display: flex;
   justify-content: space-between;
-}
+} */
 
 .main-container {
   display: flex;

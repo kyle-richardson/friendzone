@@ -3,7 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik'
 import { validationSchema } from '../utils/validationSchema'
 import { useHistory, useRouteMatch } from 'react-router'
 import { useDispatch } from 'react-redux'
-// import { login, register } from '../redux/thunks'
+import { login, register } from '../utils/redux/actions'
 
 const Signup = () => {
   const { path } = useRouteMatch()
@@ -22,9 +22,9 @@ const Signup = () => {
         initialValues={{ username: '', password: '' }}
         validationSchema={validationSchema}
         onSubmit={(values, { resetForm }) => {
-          path === '/signin' ? console.log("signed in") : console.log("registered")
-            // ? dispatch(login(values))
-            // : dispatch(register(values))
+          path === '/signin'
+             ? dispatch(login(values))
+             : dispatch(register(values))
           resetForm()
           push('/home')
         }}

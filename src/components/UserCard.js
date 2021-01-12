@@ -12,11 +12,12 @@ import { red } from "@material-ui/core/colors";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import ShareIcon from "@material-ui/icons/Share";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
+import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 import ClearIcon from "@material-ui/icons/Clear";
 import CheckIcon from "@material-ui/icons/Check";
 
-import { get_initials } from "../utils";
+import { get_initials, calcAge } from "../utils/functions";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -51,12 +52,19 @@ const UserCard = ({ person }) => {
 
   return (
     <Card className={classes.root}>
+      <h1>Data dump</h1>
+      {person ? (
+            <pre>{JSON.stringify(person, null, 2)}</pre>
+          
+       ) : (
+            console.log("no person")
+          )}
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
-            {person.thumbnail
-              ? person.thumbnail
-              : get_initials(person.first, person.last)}
+            {person.photo
+              ? person.photo
+              : get_initials(person.first_name, person.last_name)}
           </Avatar>
         }
         action={
@@ -65,13 +73,13 @@ const UserCard = ({ person }) => {
           </IconButton>
         }
         title={
-          <Typography variant="h5">{`${person.first} ${person.last}, ${person.age}`}</Typography>
+          <Typography variant="h5">{`${person.first_name}, ${calcAge(person.birthdate)}`}</Typography>
         }
         subheader={person.city}
       />
       <CardMedia
         className={classes.media}
-        image={person.photo}
+        image={person.photo!=null ? person.photo : AccountCircleIcon}
         title={`${person.first} ${person.last}`}
       />
       <CardContent>

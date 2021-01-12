@@ -1,6 +1,6 @@
 import React from 'react';
-import LeftMenu from "./components/LeftMenu"
-import Main from "./components/Main"
+import LeftMenu from "./LeftMenu"
+import Main from "./Main"
 
 function Home() {
   return (

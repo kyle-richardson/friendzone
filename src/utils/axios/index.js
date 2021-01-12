@@ -3,6 +3,6 @@ import axios from "axios";
 
 export const axiosWithBaseURL = () =>
   axios.create({
-    baseURL: "https://friendzone-backend.herokuapp.com/api",
+    baseURL: `${process.env.REACT_APP_BASE_URL}`,
     withCredentials: true
   });

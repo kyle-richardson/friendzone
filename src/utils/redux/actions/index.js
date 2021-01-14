@@ -1,4 +1,5 @@
 import axios from "axios"
+import {useHistory} from "react-router-dom"
 // export const GET_EVENTS_SUCCESS = "GET_EVENTS_SUCCESS";
 
 export const LOGIN_START = 'LOGIN_START'
@@ -18,7 +19,6 @@ export const login = credentials => dispatch => {
       .post(`${process.env.REACT_APP_BASE_URL}/users/login`, credentials)
       .then(res => {
         dispatch({ type: LOGIN_SUCCESS, payload: res.data})
-        
       })
       .catch(err => {
         console.log(err)

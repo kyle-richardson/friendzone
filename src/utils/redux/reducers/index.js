@@ -38,14 +38,15 @@ import {
         return {
             ...state,
             isLoggingIn: false,
+            isLoggedIn: true,
             error: '',
             user: payload,
-            
         }
     case LOGIN_FAIL:
         return {
             ...state,
             isLoggingIn: false,
+            isLoggedIn: false,
             error: 'Invalid Username or Password'
         }
     case REGISTER_START:

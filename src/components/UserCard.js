@@ -9,15 +9,17 @@ import Avatar from "@material-ui/core/Avatar";
 import IconButton from "@material-ui/core/IconButton";
 import Typography from "@material-ui/core/Typography";
 import { red } from "@material-ui/core/colors";
-import FavoriteIcon from "@material-ui/icons/Favorite";
-import ShareIcon from "@material-ui/icons/Share";
+// import FavoriteIcon from "@material-ui/icons/Favorite";
+// import ShareIcon from "@material-ui/icons/Share";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 
 import ClearIcon from "@material-ui/icons/Clear";
 import CheckIcon from "@material-ui/icons/Check";
 
-import { get_initials, calcAge } from "../utils/functions";
+import { getCityState, get_initials, calcAge } from "../utils/functions";
+
+import defaultImage from "../assets/testPhotos/silhouette.png"
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -42,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const UserCard = ({ person }) => {
+const UserCard = ({ person, allowEdit }) => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -52,19 +54,20 @@ const UserCard = ({ person }) => {
 
   return (
     <Card className={classes.root}>
-      <h1>Data dump</h1>
+      {/* <h1>Data dump</h1>
       {person ? (
             <pre>{JSON.stringify(person, null, 2)}</pre>
           
        ) : (
             console.log("no person")
-          )}
+          )} */}
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>
-            {person.photo
+            {person.photo!=="null"
               ? person.photo
-              : get_initials(person.first_name, person.last_name)}
+              // : get_initials(person.first_name, person.last_name)}
+              : AccountCircleIcon}
           </Avatar>
         }
         action={
@@ -75,11 +78,11 @@ const UserCard = ({ person }) => {
         title={
           <Typography variant="h5">{`${person.first_name}, ${calcAge(person.birthdate)}`}</Typography>
         }
-        subheader={person.city}
+        // subheader={getCityState(person.postal_code)}
       />
       <CardMedia
         className={classes.media}
-        image={person.photo!=null ? person.photo : AccountCircleIcon}
+        image={person.photo!=null ? person.photo : defaultImage}
         title={`${person.first} ${person.last}`}
       />
       <CardContent>

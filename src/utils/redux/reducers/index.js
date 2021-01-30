@@ -8,6 +8,7 @@ import {
     REGISTER_START,
     REGISTER_FAIL,
     REGISTER_SUCCESS,
+    CHANGE_PERSON
   } from "../actions";
   
   const initialDate = new Date();
@@ -19,8 +20,9 @@ import {
     isLoggingIn: false,
     isLoggingOut: false,
     isRegistering: false,
-    isLoggedIn: false
-  };
+    isLoggedIn: false,
+    changePerson: false  
+};
   
   export const rootReducer = (state = initialState, { type, payload }) => {
     switch (type) {
@@ -68,7 +70,28 @@ import {
             isRegistering: false,
             errorList: serverError==='Request failed with status code 500' ? ['Username not available.'] : payload
         }
-      default:
+    case LOGOUT_START:
+        return { 
+            ...state,
+            isLoggingOut: true
+        }
+    case LOGOUT_SUCCESS:
+        return { 
+            ...state,
+            isLoggingOut: false,
+            isLoggedIn: false
+        }
+    case LOGOUT_FAIL:
+        return { 
+            ...state,
+            isLoggingOut: false
+        }
+    case CHANGE_PERSON:
+        return {
+            ...state,
+            changePerson: !changePerson
+        }
+    default:
         return {
           ...state,
           //do nothing

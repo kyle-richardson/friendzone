@@ -11,6 +11,7 @@ export const LOGOUT_FAIL = 'LOGOUT_FAIL'
 export const REGISTER_START = 'REGISTER_START'
 export const REGISTER_SUCCESS ='REGISTER_SUCCESS'
 export const REGISTER_FAIL ='REGISTER_FAIL'
+export const CHANGE_PERSON ='CHANGE_PERSON'
 
 export const login = credentials => dispatch => {
     // event.preventDefault()
@@ -40,3 +41,20 @@ export const login = credentials => dispatch => {
         dispatch({ type: REGISTER_FAIL, payload: eList })
     });
     }
+  
+  export const logout = dispatch => {
+    dispatch({ type: LOGOUT_START})
+    axios
+    .post(`${process.env.REACT_APP_BASE_URL}/users/logout`)
+    .then(res => {
+      dispatch({ type: LOGOUT_SUCCESS })
+    })
+    .catch(err => {
+      console.log(err)
+      dispatch({type: LOGOUT_FAIL})
+    })
+  }
+
+  export const changePerson = dispatch => {
+    dispatch({type: CHANGE_PERSON})
+  }

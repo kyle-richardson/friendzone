@@ -12,6 +12,10 @@ import ListItemText from '@material-ui/core/ListItemText';
 import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import BlurCircularIcon from "@material-ui/icons/BlurCircular";
 import ChatIcon from '@material-ui/icons/Chat';
+import ExitToAppIcon from '@material-ui/icons/ExitToApp';
+import {logout} from '../utils/redux/actions'
+import {useDispatch} from 'react-redux'
+import {useHistory} from "react-router"
 
 const drawerWidth = 300;
 
@@ -67,13 +71,27 @@ const useStyles = makeStyles((theme) => ({
     flexGrow: 1,
     padding: theme.spacing(3),
   },
+  listItem: {
+    cursor: "pointer",
+    '&:hover': {
+      background: "rgb(240, 240, 240)"
+    }
+  },
+  listItemTextSmall: {
+    fontSize: '1.3rem'
+  },
+  listItemTextBig: {
+    fontSize: '1.8rem'
+  }
 }));
 
 const MiniDrawer= ({user}) =>{
+
   const classes = useStyles();
   const theme = useTheme();
   const [open, setOpen] = React.useState(false);
-
+  const dispatch = useDispatch()
+  const {push} = useHistory()
   const handleDrawerOpen = () => {
     setOpen(true);
   };
@@ -81,6 +99,12 @@ const MiniDrawer= ({user}) =>{
   const handleDrawerClose = () => {
     setOpen(false);
   };
+
+  const handleLogout = () => {
+    dispatch(logout)
+    sessionStorage.removeItem('user')
+    push('/signin')
+  }
 
   return (
     <div className={classes.root}>
@@ -108,26 +132,35 @@ const MiniDrawer= ({user}) =>{
         }}
       >
         <List>
-          <ListItem>
+          <ListItem  className = {classes.listItem}>
             <ListItemIcon>
               <AccountCircleIcon />
             </ListItemIcon>
-            <ListItemText primary={<span className="left-menu-big">{user.first_name}</span>}/>
+            <ListItemText primary={<span className={classes.listItemTextBig}>{user.first_name}</span>}/>
           </ListItem>
         </List>
         <Divider />
         <List>
-          <ListItem>
+          <ListItem className = {classes.listItem} >
             <ListItemIcon>
               <BlurCircularIcon />
             </ListItemIcon>
-            <ListItemText primary={<span className="left-menu-small">Your Matches</span>} />
+            <ListItemText primary={<span className={classes.listItemTextSmall}>Matches</span>} />
           </ListItem>
-          <ListItem>
+          <ListItem  className = {classes.listItem} >
             <ListItemIcon>
               <ChatIcon />
             </ListItemIcon>
-            <ListItemText primary={<span className="left-menu-small">Your Conversations</span>} />
+            <ListItemText primary={<span className={classes.listItemTextSmall}>Conversations</span>} />
+          </ListItem>
+        </List>
+        <List style={{position: "absolute", bottom: "10px", width: drawerWidth}}>
+          <ListItem className = {classes.listItem} 
+            onClick={handleLogout}>
+            <ListItemIcon>
+              <ExitToAppIcon/>
+            </ListItemIcon>
+            <ListItemText primary={<span className={classes.listItemTextSmall}>Logout</span>} />
           </ListItem>
         </List>
       </Drawer>

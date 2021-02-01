@@ -17,12 +17,13 @@ import {useSelector} from 'react-redux'
 
 const Main = ({user}) => {
   const [person, setPerson] = useState(user)
-  const {changePerson} = useSelector(state=> state)
+  const {changePerson} = useSelector(state => state)
   useEffect(()=> {
     axiosWithBaseURL()
     .get('/users/random')
     .then(res=> {
       setPerson(res.data)
+      console.log(res.data)
     })
     .catch(err=> {
       console.log(err)

@@ -89,7 +89,7 @@ import {
     case CHANGE_PERSON:
         return {
             ...state,
-            changePerson: !changePerson
+            changePerson: !state.changePerson
         }
     default:
         return {

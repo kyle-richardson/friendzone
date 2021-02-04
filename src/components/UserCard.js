@@ -17,6 +17,8 @@ import AccountCircleIcon from '@material-ui/icons/AccountCircle';
 import ClearIcon from "@material-ui/icons/Clear";
 import CheckIcon from "@material-ui/icons/Check";
 
+import TextField from "@material-ui/core/TextField"
+
 import { getCityState, get_initials, calcAge } from "../utils/functions";
 
 import defaultImage from "../assets/testPhotos/silhouette.png"
@@ -47,20 +49,12 @@ const useStyles = makeStyles((theme) => ({
 const UserCard = ({ person, allowEdit }) => {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
-
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
 
   return (
     <Card className={classes.root}>
-      {/* <h1>Data dump</h1>
-      {person ? (
-            <pre>{JSON.stringify(person, null, 2)}</pre>
-          
-       ) : (
-            console.log("no person")
-          )} */}
       <CardHeader
         avatar={
           <Avatar aria-label="recipe" className={classes.avatar}>

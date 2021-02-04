@@ -8,7 +8,9 @@ import {
     REGISTER_START,
     REGISTER_FAIL,
     REGISTER_SUCCESS,
-    CHANGE_PERSON
+    CHANGE_PERSON,
+    ACCOUNT_EDIT,
+    DONE_EDIT
   } from "../actions";
   
   const initialDate = new Date();
@@ -21,7 +23,8 @@ import {
     isLoggingOut: false,
     isRegistering: false,
     isLoggedIn: false,
-    changePerson: false  
+    changePerson: false,
+    accountEdit: false
 };
   
   export const rootReducer = (state = initialState, { type, payload }) => {
@@ -90,6 +93,16 @@ import {
         return {
             ...state,
             changePerson: !state.changePerson
+        }
+    case ACCOUNT_EDIT:
+        return {
+            ...state,
+            accountEdit: true
+        }
+    case DONE_EDIT:
+        return {
+            ...state,
+            accountEdit: false
         }
     default:
         return {

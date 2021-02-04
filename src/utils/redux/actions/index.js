@@ -12,6 +12,8 @@ export const REGISTER_START = 'REGISTER_START'
 export const REGISTER_SUCCESS ='REGISTER_SUCCESS'
 export const REGISTER_FAIL ='REGISTER_FAIL'
 export const CHANGE_PERSON ='CHANGE_PERSON'
+export const ACCOUNT_EDIT ='ACCOUNT_EDIT'
+export const DONE_EDIT = "DONE_EDIT"
 
 export const login = credentials => dispatch => {
     // event.preventDefault()
@@ -55,6 +57,14 @@ export const login = credentials => dispatch => {
     })
   }
 
-  export const changePerson = dispatch => {
-    dispatch({type: CHANGE_PERSON})
+  export const changePerson = {
+    type: CHANGE_PERSON
+  }
+
+  export const accountEdit = {
+    type: ACCOUNT_EDIT
+  }
+
+  export const doneAccountEdit = {
+    type: DONE_EDIT
   }

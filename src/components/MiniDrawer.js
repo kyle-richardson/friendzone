@@ -13,7 +13,7 @@ import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 import BlurCircularIcon from "@material-ui/icons/BlurCircular";
 import ChatIcon from '@material-ui/icons/Chat';
 import ExitToAppIcon from '@material-ui/icons/ExitToApp';
-import {logout} from '../utils/redux/actions'
+import {logout, accountEdit} from '../utils/redux/actions'
 import {useDispatch} from 'react-redux'
 import {useHistory} from "react-router"
 
@@ -106,6 +106,10 @@ const MiniDrawer= ({user}) =>{
     push('/signin')
   }
 
+  const handleAccountEdit = () => {
+    dispatch(accountEdit)
+  }
+
   return (
     <div className={classes.root}>
       <CssBaseline />
@@ -132,7 +136,7 @@ const MiniDrawer= ({user}) =>{
         }}
       >
         <List>
-          <ListItem  className = {classes.listItem}>
+          <ListItem  className = {classes.listItem} onClick={handleAccountEdit}>
             <ListItemIcon>
               <AccountCircleIcon />
             </ListItemIcon>

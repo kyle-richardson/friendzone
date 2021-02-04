@@ -1,7 +1,9 @@
 import React, {useEffect, useState} from "react";
 import UserCard from "./UserCard";
 import {axiosWithBaseURL} from "../utils/axios"
-import {useSelector} from 'react-redux'
+import {useSelector, useDispatch} from 'react-redux'
+import Button from '@material-ui/core/Button'
+import {doneAccountEdit} from "../utils/redux/actions"
 
 // import testUserPhoto from "../assets/testPhotos/testUserPhoto.jpg";
 
@@ -17,23 +19,47 @@ import {useSelector} from 'react-redux'
 
 const Main = ({user}) => {
   const [person, setPerson] = useState(user)
-  const {changePerson} = useSelector(state => state)
+  const {changePerson, accountEdit} = useSelector(state => state)
+  const [allowEdit, setAllowEdit] = useState(false)
+  const dispatch = useDispatch()
+  const handleDone = () => {
+    dispatch(doneAccountEdit)
+  }
+
+  const handleToggleEdit = () => {
+    if(allowEdit) {
+      dispatch()
+    }
+    setAllowEdit(!allowEdit)
+  }
+
   useEffect(()=> {
-    axiosWithBaseURL()
-    .get('/users/random')
-    .then(res=> {
-      setPerson(res.data)
-      console.log(res.data)
-    })
-    .catch(err=> {
-      console.log(err)
-    })
-  },[changePerson])
+    if (accountEdit) {
+      setPerson(user)
+    }
+    else {
+      axiosWithBaseURL()
+      .get('/users/random')
+      .then(res=> {
+        setPerson(res.data)
+      })
+      .catch(err=> {
+        console.log(err)
+      })
+    }
+  },[changePerson, accountEdit])
   return (
     <>
       <div className="main-container">
         <h2>FriendZone</h2>
-        <UserCard person={person} />
+        {accountEdit && 
+          <div style={{display: "flex"}}>
+            <h3>This is what others will see.</h3>
+            <Button onClick={handleToggleEdit}>{allowEdit ? "Save" : "Edit"}</Button>
+          </div>
+        }
+        <UserCard person={person} allowEdit = {allowEdit}/>
+        {accountEdit && <Button onClick = {handleDone}>{allowEdit ? "Save and quit" : "Done"}</Button> }
       </div>
     </>
   );

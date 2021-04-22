@@ -19,13 +19,14 @@ import CheckIcon from "@material-ui/icons/Check";
 
 import TextField from "@material-ui/core/TextField"
 
-import { getCityState, get_initials, calcAge } from "../utils/functions";
+import { getCityState, get_initials, calcAge, findNextSlot } from "../utils/functions";
 
 import defaultImage from "../assets/testPhotos/silhouette.png"
 
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 345,
+    marginBottom: "10px"
   },
   media: {
     height: 0,
@@ -57,7 +58,7 @@ const UserCard = ({ person, allowEdit }) => {
     <Card className={classes.root}>
       <CardHeader
         avatar={
-          <Avatar aria-label="recipe" className={classes.avatar}>
+          <Avatar aria-label="avatar" className={classes.avatar}>
             {person.photo!=="null"
               ? person.photo
               // : get_initials(person.first_name, person.last_name)}
@@ -82,6 +83,12 @@ const UserCard = ({ person, allowEdit }) => {
       <CardContent>
         <Typography variant="body2" color="textSecondary" component="p">
           {person.bio}
+        </Typography>
+        <Typography variant="body2" color="textSecondary" component="p">
+          Next Playdate Availability:
+        </Typography>
+        <Typography variant="body2" color="textSecondary" component="p">
+          {findNextSlot(person.calendar)}
         </Typography>
       </CardContent>
       <CardActions disableSpacing>

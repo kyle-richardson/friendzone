@@ -35,3 +35,10 @@ code {
 	margin: 0 auto;
 	background: rgb(211, 187, 211);
 }
+
+#form {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}

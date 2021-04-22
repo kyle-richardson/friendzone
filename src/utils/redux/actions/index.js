@@ -31,8 +31,15 @@ export const login = credentials => dispatch => {
   
   export const register = credentials => dispatch => {
     // event.preventDefault()
+    console.log("register start")
     axios
-    .post(`${process.env.REACT_APP_BASE_URL}/users/register`, {...credentials, "postal_code": 11111})
+    .post(`${process.env.REACT_APP_BASE_URL}/users/register`, 
+    {...credentials, 
+      "postal_code": 11111,
+      "first_name": credentials.username,
+      "birthdate": "1988-02-01"
+
+    })
     .then(res => {
         dispatch({ type: REGISTER_SUCCESS, payload: res })
         dispatch(login(credentials))

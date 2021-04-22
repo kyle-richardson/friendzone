@@ -5,17 +5,6 @@ import {useSelector, useDispatch} from 'react-redux'
 import Button from '@material-ui/core/Button'
 import {doneAccountEdit} from "../utils/redux/actions"
 
-// import testUserPhoto from "../assets/testPhotos/testUserPhoto.jpg";
-
-// const exampleUser = {
-//   age: 32,
-//   first: "Kyle",
-//   last: "Test",
-//   city: "Fort Worth",
-//   thumbnail: null,
-//   photo: testUserPhoto,
-//   bio: "Hey, waiting to meet my new best friend!! Come say hi",
-// };
 
 const Main = ({user}) => {
   const [person, setPerson] = useState(user)
@@ -23,6 +12,10 @@ const Main = ({user}) => {
   const [allowEdit, setAllowEdit] = useState(false)
   const dispatch = useDispatch()
   const handleDone = () => {
+    if(allowEdit){
+
+    }
+    setAllowEdit(false)
     dispatch(doneAccountEdit)
   }
 
@@ -54,7 +47,7 @@ const Main = ({user}) => {
         <h2>FriendZone</h2>
         {accountEdit && 
           <div style={{display: "flex"}}>
-            <h3>This is what others will see.</h3>
+            <p>This is what others will see.</p>
             <Button onClick={handleToggleEdit}>{allowEdit ? "Save" : "Edit"}</Button>
           </div>
         }

@@ -17,7 +17,7 @@ import {logout, accountEdit} from '../utils/redux/actions'
 import {useDispatch} from 'react-redux'
 import {useHistory} from "react-router"
 
-const drawerWidth = 300;
+const drawerWidth = 280;
 
 const useStyles = makeStyles((theme) => ({
   root: {

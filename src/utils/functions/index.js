@@ -28,3 +28,28 @@ export const getCityState = (postalCode) => {
     country = raw.country.short
     return `${city}, ${state}`
 }
+
+//Todo : if calendar information from backend is structured with repeating days, 
+//may need to use this function to find the next available time.
+export const findNextSlot = (calendar) => {
+    if(calendar === null) {
+        return "No Slots"
+    }
+    return calendar
+}
+
+// dayOfWeek 0 = Sunday, 7= Saturday
+function nextDayAndTime(dayOfWeek, hour, minute) {
+    var now = new Date()
+    var result = new Date(
+                   now.getFullYear(),
+                   now.getMonth(),
+                   now.getDate() + (7 + dayOfWeek - now.getDay()) % 7,
+                   hour,
+                   minute)
+  
+    if (result < now)
+      result.setDate(result.getDate() + 7)
+    
+    return result
+  }

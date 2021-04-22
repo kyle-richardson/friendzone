@@ -26,7 +26,7 @@ const Landing = () => {
       <h1>{path === '/signin' ? (
         "Sign in below"
       ) : 
-        "New user? Register below."
+        "Register below."
       }</h1>
 
       <Formik
@@ -38,6 +38,7 @@ const Landing = () => {
              : dispatch(register(values))
         }}
       >
+        {({ errors, touched }) => (
         <Form style={{
           display: "flex", 
           flexDirection: "column",
@@ -45,6 +46,7 @@ const Landing = () => {
           margin: "0 auto"
         }}>
           {/* <Field type='text' name='username' placeholder='Username' /> */}
+          <ErrorMessage name="username"/>
           <Field 
             style={{marginTop: "20px"}}
             component={TextField}
@@ -55,6 +57,7 @@ const Landing = () => {
             label="Username"
             required
           />
+          <ErrorMessage name="password"/>
           <Field 
             style={{marginTop: "20px"}}
             component={TextField}
@@ -69,9 +72,15 @@ const Landing = () => {
             style={{marginTop: "20px"}}
             type="submit"
           >
-            Submit
+            {path === '/signin' ? "Sign In" : "Register"}
           </Button>
+          {path === '/signin' ? 
+              <Button onClick={()=>push('/register')}>I don't have an account</Button>
+              :
+              <Button onClick={()=>push('/signin')}>I already have an account</Button>
+          }
         </Form>
+        )}
       </Formik>
     </div>
   )

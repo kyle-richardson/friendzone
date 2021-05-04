@@ -25,8 +25,10 @@ import defaultImage from "../assets/testPhotos/silhouette.png"
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    maxWidth: 345,
-    marginBottom: "10px"
+    maxWidth: 300,
+    marginBottom: "10px",
+    width:300,
+    height:450
   },
   media: {
     height: 0,

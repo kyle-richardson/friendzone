@@ -26,9 +26,16 @@ import defaultImage from "../assets/testPhotos/silhouette.png"
 const useStyles = makeStyles((theme) => ({
   root: {
     maxWidth: 300,
-    marginBottom: "10px",
+    margin: 10,
     width:300,
-    height:450
+    height:400,
+    display: "flex",
+    flexDirection: "column",
+    justifyContent:"space-between",
+
+  },
+  title: {
+    fontSize: "1.5em"
   },
   media: {
     height: 0,
@@ -44,12 +51,24 @@ const useStyles = makeStyles((theme) => ({
   expandOpen: {
     transform: "rotate(180deg)",
   },
+  avatarContainer: {
+    padding: 0,
+    margin: "0 auto"
+  },
   avatar: {
     backgroundColor: red[500],
+    height:65,
+    width: 65,
+    margin: "0 auto"
   },
+  action: {
+    alignSelf: "center !important"
+  }
 }));
 
 const UserCard = ({ person, allowEdit }) => {
+  let parsedCalendar = []
+  if(person.calendar) parsedCalendar = [...person.calendar]
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
   const handleExpandClick = () => {
@@ -57,14 +76,19 @@ const UserCard = ({ person, allowEdit }) => {
   };
 
   return (
-    <Card className={classes.root}>
-      <CardHeader
+    <Card className={
+      classes.root
+    }>
+      <CardHeader 
+        classes={{
+          action: classes.action,
+          avatar: classes.avatarContainer
+        }}
         avatar={
-          <Avatar aria-label="avatar" className={classes.avatar}>
-            {person.photo!=="null"
-              ? person.photo
-              // : get_initials(person.first_name, person.last_name)}
-              : AccountCircleIcon}
+          <Avatar className={classes.avatar} aria-label="avatar">
+              {person.photo
+               ? <img src={person.photo} /> 
+               :  <AccountCircleIcon/>}
           </Avatar>
         }
         action={
@@ -73,25 +97,32 @@ const UserCard = ({ person, allowEdit }) => {
           </IconButton>
         }
         title={
-          <Typography variant="h5">{`${person.first_name}, ${calcAge(person.birthdate)}`}</Typography>
+          <Typography className={classes.title} variant="h5">{`${person.first_name}`}</Typography>
         }
         // subheader={getCityState(person.postal_code)}
       />
-      <CardMedia
+      {/* <CardMedia
         className={classes.media}
         image={person.photo!=null ? person.photo : defaultImage}
         title={`${person.first} ${person.last}`}
-      />
-      <CardContent>
+      /> */}
+      <CardContent style={{display:"flex", flexDirection:"column",justifyContent:"space-between", height: "100%"}}>
         <Typography variant="body2" color="textSecondary" component="p">
           {person.bio}
         </Typography>
+        <div>
         <Typography variant="body2" color="textSecondary" component="p">
-          Next Playdate Availability:
+          Playdate Days/Times:
         </Typography>
         <Typography variant="body2" color="textSecondary" component="p">
-          {findNextSlot(person.calendar)}
+          {parsedCalendar.length > 0 && parsedCalendar.map(ele=>{
+            return (<div>
+              <p><span>{ele.day}, </span><span>{ele.time}</span></p>
+            </div>)
+          })}
         </Typography>
+        </div>
+       
       </CardContent>
       <CardActions disableSpacing>
         <IconButton aria-label="swipe left">
